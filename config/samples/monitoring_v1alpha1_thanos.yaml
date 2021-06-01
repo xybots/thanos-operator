@@ -1,0 +1,28 @@
+apiVersion: monitoring.banzaicloud.io/v1alpha1
+kind: Thanos
+metadata:
+  name: thanos-sample
+spec:
+  enableRecreateWorkloadOnImmutableFieldChange: true
+  query:
+    metrics:
+      serviceMonitor: true
+    HTTPIngress: {}
+#    GRPCIngress: {}
+#    GRPCClientCertificate: example-com-tls
+  rule:
+    metrics:
+      serviceMonitor: true
+    dataVolume:
+      pvc:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          volumeMode: "Filesystem"
+  storeGateway:
+#    GRPCServerCertificate: example-com-tls
+    metrics:
+      serviceMonitor: true

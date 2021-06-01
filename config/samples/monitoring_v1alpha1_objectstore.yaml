@@ -1,0 +1,20 @@
+apiVersion: monitoring.banzaicloud.io/v1alpha1
+kind: ObjectStore
+metadata:
+  name: objectstore-sample
+spec:
+  config:
+    mountFrom:
+      secretKeyRef:
+        name: thanos
+        key: object-store.yaml
+  bucketWeb: {}
+  compactor:
+    dataVolume:
+      pvc:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
